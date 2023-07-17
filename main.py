@@ -262,19 +262,19 @@ def download_slide_images(url):
   else:
     return "<p>Error: Invalid URL</p>"
 
-'''
+
 # Add the necessary import and function definition for `send_from_directory`
 def fast_download(url):
   # Use the global executor.
   return executor.submit(download_slide_images, url).result()
-'''
+
 
 @app.route('/apii', methods=['GET'])
 def process_slideshare_api():
   with app.app_context():
     url = request.args.get('url')
     if url:
-      result = download_slide_images(url)
+      result = fast_download(url)
       return result
     else:
       return "Error: Missing 'url' parameter.", 400
